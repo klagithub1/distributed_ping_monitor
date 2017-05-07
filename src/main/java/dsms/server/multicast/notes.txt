@@ -1,0 +1,28 @@
+p647-674
+
+Basic Multicast:
+To B-multicast(g, m): for each process p ∈ g  , send(p, m);
+On receive(m) at p: B-deliver(m) at p.
+
+
+Reliable Multicast with FIFO piggyback:
+On initialization
+	S_g^p := 0;
+For process p to R-multicast message m to group g
+	B-multicast(g, m ∪ S_g^p); // p ∈ g is included as a destination
+	S_g^p++;
+On B-deliver(m) at process q with g = group(m)
+	if (R_g^q = S_g^p)
+	then
+		R_g^q++;
+		if (q ≠ p) then B-multicast(g, m); end if
+		R-deliver m;
+	end if
+On R-deliver(m) at process p
+    if (S=R_g^q+1)
+
+FIFO with piggyback
+For p to FO-multicast a message to group g, it piggybacks the value S_g^p onto the message, B-multicasts the message to g and then increments S_g^p by 1.
+Upon receipt of a message from q bearing the sequence number S, p checks whether S=R_g^q+1.
+If so, this message is the next one expected from the sender q and p FO-delivers it, setting R_g^q:=S.
+If S>R_g^q+1, it places the message in the hold-back queue until the intervening messages have been delivered and S=R_g^q+1.

@@ -1,0 +1,11 @@
+module DSMSApp
+{
+	interface DSMS
+	{
+		void createDrecord(in string MID,in string id,in string FirstName, in string LastName, in string PhoneNumber, in string Address, in string Specialization, in string Location);
+		void createNrecord(in string MID, in string id,in string firstName,in string lastName,in string designation,in string status,in string statusDate);
+		void EditData(in string MID,in string id,in string fieldName,in string newValue );
+		void transferRecord (in string managerID, in string recordID,in string remoteClinicServerName);
+		void getRecordCount(in string managerID);
+	};
+};
